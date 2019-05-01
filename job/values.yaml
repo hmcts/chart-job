@@ -2,9 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# Image for container
-image: hmctssandbox.azurecr.io/hmcts/plum-batch:latest
-
 # resource limits set to container.
 memoryRequests: '512Mi'
 cpuRequests: '25m'

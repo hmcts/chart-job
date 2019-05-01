@@ -57,7 +57,7 @@ The following table lists the configurable parameters of the Job chart and their
 | `activeDeadlineSeconds`    | Once a Job reaches activeDeadlineSeconds, all of its Pods are terminated and the Job status will become type: Failed with reason: DeadlineExceeded    | `nil`     |
 | `ttlSecondsAfterFinished`  | TTL to clean up finished Jobs, note this is an alpha feature currently and can be enabled with feature gate TTLAfterFinished | `nil`     |
 | `releaseNameOverride`      | Will override the resource name - advised to use with pipeline variable SERVICE_NAME: `releaseNameOverride: ${SERVICE_NAME}-my-custom-name`      | `Release.Name-Chart.Name`     |
-| `image`                    | Full image url | `hmctssandbox.azurecr.io/hmcts/plum-batch:latest`<br>(but overridden by pipeline) |
+| `image`                    | Full image url | `nil` |
 | `environment`              |  A map containing all environment values you wish to set. <br> **Note**: environment variables (the key in KEY: value) must be uppercase and only contain letters,  "_", or numbers and value can be templated | `nil`|
 | `configmap`                | A config map, can be used for environment specific config.| `nil`|
 | `memoryRequests`           | Requests for memory | `512Mi`|
