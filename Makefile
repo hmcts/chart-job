@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := all
-CHART := jobs
+CHART := job
 RELEASE := chart-${CHART}-release
 NAMESPACE := chart-tests
 TEST := ${RELEASE}-test-service

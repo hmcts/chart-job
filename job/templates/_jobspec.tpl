@@ -1,7 +1,7 @@
 {{/*
 Create job spec.
 */}}
-{{- define "jobs.spec" -}}
+{{- define "job.spec" -}}
 spec:
   {{- if .Values.backoffLimit }}
   backoffLimit: {{ .Values.backoffLimit }}

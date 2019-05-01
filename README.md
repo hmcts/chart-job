@@ -1,4 +1,4 @@
-# chart-jobs
+# chart-job
 
 Helm chart repository for Kubernetes Jobs and Cron Jobs.
 
@@ -28,7 +28,7 @@ kind: CronJob
 ```
 
 ### Secrets
-To add secrets such as passwords and service keys to the Jobs chart you can use the the secrets section.
+To add secrets such as passwords and service keys to the Job chart you can use the the secrets section.
 The secrets section maps the secret to an environment variable in the container.
 e.g :
 ```yaml
@@ -47,7 +47,7 @@ secrets:
 
 ## Configuration
 
-The following table lists the configurable parameters of the JOBS chart and their default values.
+The following table lists the configurable parameters of the Job chart and their default values.
 
 | Parameter                  | Description                                | Default  |
 | -------------------------- | ------------------------------------------ | ----- |

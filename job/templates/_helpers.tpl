@@ -19,9 +19,9 @@ Create chart name and version as used by the chart label.
 {{- end -}}
 
 {/*
-Create meta data using releasname and chart name templates for jobs.
+Create meta data using releasename and chart name templates.
 */}}
-{{- define "jobs.metadata" -}}
+{{- define "job.metadata" -}}
 metadata:
   name: {{ include "hmcts.releaseName" . }}
   labels:

@@ -1,4 +1,4 @@
-name: chart-jobs pipeline
+name: chart-job pipeline
 trigger:
   branches:
     include:
@@ -21,8 +21,8 @@ jobs:
   steps:
   - template: steps/charts/validate.yaml@cnp-library
     parameters:
-      chartName: jobs
-      chartReleaseName: chart-jobs-ci-test
+      chartName: job
+      chartReleaseName: chart-job-ci-test
       chartNamespace: chart-tests
 
 - job: Release
@@ -38,6 +38,6 @@ jobs:
   steps:
   - template: steps/charts/release.yaml@cnp-library
     parameters:
-      chartName: jobs
-      chartReleaseName: chart-jobs
+      chartName: job
+      chartReleaseName: chart-job
       chartNamespace: chart-tests

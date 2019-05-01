@@ -2,6 +2,6 @@
 ---
 apiVersion: batch/v1
 kind: Job
-{{ include "jobs.metadata" .}}
-{{ include "jobs.spec" .}}
+{{ include "job.metadata" .}}
+{{ include "job.spec" .}}
   {{- end}}
