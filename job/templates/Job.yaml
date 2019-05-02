@@ -1,0 +1,7 @@
+{{if and .Values.kind (eq .Values.kind "Job") }}
+---
+apiVersion: batch/v1
+kind: Job
+{{ include "job.metadata" .}}
+{{ include "job.spec" .}}
+  {{- end}}
