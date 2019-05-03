@@ -1,4 +1,4 @@
-{{if and .Values.kind (eq .Values.kind "CronJob") }}
+{{if and .Values.global.job.kind (eq .Values.global.job.kind "CronJob") }}
 ---
 apiVersion: batch/v1beta1
 kind: CronJob

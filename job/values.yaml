@@ -9,7 +9,9 @@ memoryLimits: '1024Mi'
 cpuLimits: '2500m'
 
 # Kind of Job to be created. It can be a Job or a CronJob
-kind: Job
+global:
+  job:
+    kind: Job
 
 # The number of retries before considering a Job as failed
 backoffLimit: 6

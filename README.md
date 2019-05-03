@@ -20,11 +20,12 @@ keyVaults:
     secrets:
       - microservicekey-rd-user-profile-api
 global:
+  job:
+    kind: CronJob
   subscriptionId: "bf308a5c-0624-4334-8ff8-8dca9fd43783"
   tenantId: "531ff96d-0ae9-462a-8d2d-bec7c0b42082"
   environment: saat
 schedule: "*/1 * * * *"
-kind: CronJob
 ```
 
 ### Secrets
@@ -51,7 +52,7 @@ The following table lists the configurable parameters of the Job chart and their
 
 | Parameter                  | Description                                | Default  |
 | -------------------------- | ------------------------------------------ | ----- |
-| `kind`                     | Enumerated field to create a `CronJob` or `Job`     | `Job`     |
+| `global.job.kind`          | Enumerated field to create a `CronJob` or `Job`     | `Job`     |
 | `schedule`                 | Cron expression for scheduling cron job. As the name suggests, its applicable and mandatory only if kind is `CronJob`    | `nil`     |
 | `backoffLimit`             | The number of retries before considering a Job as failed   | `6`     |
 | `activeDeadlineSeconds`    | Once a Job reaches activeDeadlineSeconds, all of its Pods are terminated and the Job status will become type: Failed with reason: DeadlineExceeded    | `nil`     |
