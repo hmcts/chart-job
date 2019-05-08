@@ -54,6 +54,11 @@ The following table lists the configurable parameters of the Job chart and their
 | -------------------------- | ------------------------------------------ | ----- |
 | `global.job.kind`          | Enumerated field to create a `CronJob` or `Job`     | `Job`     |
 | `schedule`                 | Cron expression for scheduling cron job. As the name suggests, its applicable and mandatory only if kind is `CronJob`    | `nil`     |
+| `startingDeadlineSeconds`  | Deadline in seconds for starting the job if it misses its scheduled time for any reason. Applicable only if kind is  `CronJob`   | `nil`     |
+| `concurrencyPolicy`        | It specifies how to treat concurrent executions of a job that is created by this cron job. Applicable only if kind is  `CronJob`   | `Allow`     |
+| `successfulJobsHistoryLimit`| The number of completed jobs to be kept. Applicable only if kind is  `CronJob`    | `3`     |
+| `failedJobsHistoryLimit`   | The number of failed jobs to be kept. Applicable only if kind is  `CronJob`   | `1`     |
+| `suspend`                  | If it is set to true, all subsequent executions are suspended. This setting does not apply to already started executions. Applicable only if kind is  `CronJob`   | `false`     |
 | `backoffLimit`             | The number of retries before considering a Job as failed   | `6`     |
 | `activeDeadlineSeconds`    | Once a Job reaches activeDeadlineSeconds, all of its Pods are terminated and the Job status will become type: Failed with reason: DeadlineExceeded    | `nil`     |
 | `ttlSecondsAfterFinished`  | TTL to clean up finished Jobs, note this is an alpha feature currently and can be enabled with feature gate TTLAfterFinished | `nil`     |
