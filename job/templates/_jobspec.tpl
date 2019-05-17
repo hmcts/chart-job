@@ -16,6 +16,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: {{ include "hmcts.releaseName" . }}
+        {{- include "job.labels" . | indent 8}}
     spec:
       {{- if .Values.keyVaults }}
       volumes:
