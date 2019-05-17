@@ -30,3 +30,14 @@ metadata:
     app.kubernetes.io/instance: {{ template "hmcts.releaseName" . }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
+
+{{/*
+Add labels to add to template spec.
+*/}}
+{{- define "job.labels" -}}
+{{- if .Values.labels }}
+{{- range $key, $val := .Values.labels }}
+{{ $key }}: {{ $val }}
+{{- end}}
+{{- end}}
+{{- end -}}

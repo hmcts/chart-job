@@ -14,6 +14,9 @@ environment:
 configmap:
   VAR_A: VALUE_A
   VAR_B: VALUE_B
+labels:
+  sample : sample-value
+  another: another-value
 keyVaults:
   "s2s":
     resourceGroup: rpe-service-auth-provider
@@ -71,6 +74,7 @@ The following table lists the configurable parameters of the Job chart and their
 | `memoryLimits`             | Memory limits| `1024Mi`|
 | `cpuLimits`                | CPU limits | `2500m`|
 | `secrets`                  | Mappings of environment variables to service objects or pre-configured kubernetes secrets |  nil |
+| `labels`                   | Additional Labels to be added to Job Template Spec |  nil |
 | `keyVaults`                | Mappings of keyvaults to be mounted as flexvolumes (see Example Configuration) |  nil |
 
 ## Adding Azure Key Vault Secrets
