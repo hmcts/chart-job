@@ -17,18 +17,24 @@ spec:
       labels:
         app.kubernetes.io/name: {{ include "hmcts.releaseName" . }}
         {{- include "job.labels" . | indent 8}}
+        {{- if .Values.aadIdentityName }}
+        aadpodidbinding: {{ .Values.aadIdentityName }}
+        {{- end }}
     spec:
       {{- if .Values.keyVaults }}
       volumes:
         {{- $globals := .Values.global }}
+         {{- $aadIdentityName := .Values.aadIdentityName }}
         {{- range $key, $value := .Values.keyVaults }}
-        - name: kvcreds-{{ $key }}
+        - name: vault-{{ $key }}
           flexVolume:
             driver: "azure/kv"
+            {{- if not $aadIdentityName }}
             secretRef:
               name: {{ default "kvcreds" $value.secretRef }}
+             {{- end }}
             options:
-              usepodidentity: "false"
+              usepodidentity: "{{ if $aadIdentityName }}true{{ else }}false{{ end}}"
               subscriptionid: {{ $globals.subscriptionId }}
               tenantid: {{ $globals.tenantId }}
               keyvaultname: {{if $value.excludeEnvironmentSuffix }}{{ $key | quote }}{{else}}{{ printf "%s-%s" $key $globals.environment }}{{ end }}
@@ -82,7 +88,7 @@ spec:
         {{- if .Values.keyVaults }}
         volumeMounts:
           {{- range $key, $value := .Values.keyVaults }}
-          - name: kvcreds-{{ $key }}
+          - name: vault-{{ $key }}
             mountPath: /mnt/secrets/{{ $key }}
             readOnly: true
           {{- end }}

@@ -76,11 +76,13 @@ The following table lists the configurable parameters of the Job chart and their
 | `secrets`                  | Mappings of environment variables to service objects or pre-configured kubernetes secrets |  nil |
 | `labels`                   | Additional Labels to be added to Job Template Spec |  nil |
 | `keyVaults`                | Mappings of keyvaults to be mounted as flexvolumes (see Example Configuration) |  nil |
+| `aadIdentityName`          | If you wish to use pod identity for accessing the key vaults instead of a service principal, you need to set this with identity name |  nil |
 
 ## Adding Azure Key Vault Secrets
 Key vault secrets can be mounted to the container filesystem using what's called a [keyvault-flexvolume](https://github.com/Azure/kubernetes-keyvault-flexvol). A flexvolume is just a kubernetes volume from the user point of view. This means that the keyvault secrets are accessible as files after they have been mounted.
 To do this you need to add the **keyVaults** section to the configuration.
 ```yaml
+aadIdentityName: cmc
 keyVaults:
     <VAULT_NAME>:
       excludeEnvironmentSuffix: true
