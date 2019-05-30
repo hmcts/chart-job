@@ -26,7 +26,7 @@ spec:
         {{- $globals := .Values.global }}
          {{- $aadIdentityName := .Values.aadIdentityName }}
         {{- range $key, $value := .Values.keyVaults }}
-        - name: kvcreds-{{ $key }}
+        - name: vault-{{ $key }}
           flexVolume:
             driver: "azure/kv"
             {{- if not $aadIdentityName }}
@@ -88,7 +88,7 @@ spec:
         {{- if .Values.keyVaults }}
         volumeMounts:
           {{- range $key, $value := .Values.keyVaults }}
-          - name: kvcreds-{{ $key }}
+          - name: vault-{{ $key }}
             mountPath: /mnt/secrets/{{ $key }}
             readOnly: true
           {{- end }}
