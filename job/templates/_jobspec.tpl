@@ -21,7 +21,7 @@ spec:
         aadpodidbinding: {{ .Values.aadIdentityName }}
         {{- end }}
     spec:
-      {{- if .Values.keyVaults }}
+      {{- if and .Values.keyVaults .Values.global.enableKeyVaults }}
       volumes:
         {{- $globals := .Values.global }}
          {{- $aadIdentityName := .Values.aadIdentityName }}
@@ -85,7 +85,7 @@ spec:
               name: {{ include "hmcts.releaseName" . }}
         {{- end }}
 
-        {{- if .Values.keyVaults }}
+        {{- if and .Values.keyVaults .Values.global.enableKeyVaults }}
         volumeMounts:
           {{- range $key, $value := .Values.keyVaults }}
           - name: vault-{{ $key }}

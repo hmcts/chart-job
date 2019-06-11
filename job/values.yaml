@@ -10,6 +10,7 @@ cpuLimits: '2500m'
 
 # Kind of Job to be created. It can be a Job or a CronJob
 global:
+  enableKeyVaults: false
   job:
     kind: Job
 
