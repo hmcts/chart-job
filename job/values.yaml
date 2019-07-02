@@ -16,3 +16,5 @@ global:
 
 # The number of retries before considering a Job as failed
 backoffLimit: 6
+
+restartPolicy: OnFailure
