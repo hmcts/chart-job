@@ -46,7 +46,7 @@ spec:
       securityContext:
         runAsUser: 1000
         fsGroup: 1000
-      restartPolicy: OnFailure
+      restartPolicy: {{ .Values.restartPolicy }}
       containers:
       - image: {{ .Values.image }}
         name: {{ include "hmcts.releaseName" . }}
