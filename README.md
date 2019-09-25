@@ -19,13 +19,11 @@ labels:
   another: another-value
 keyVaults:
   "s2s":
-    resourceGroup: rpe-service-auth-provider
     secrets:
       - microservicekey-rd-user-profile-api
 global:
   job:
     kind: CronJob
-  subscriptionId: "bf308a5c-0624-4334-8ff8-8dca9fd43783"
   tenantId: "531ff96d-0ae9-462a-8d2d-bec7c0b42082"
   environment: saat
 schedule: "*/1 * * * *"
@@ -86,19 +84,16 @@ aadIdentityName: cmc
 keyVaults:
     <VAULT_NAME>:
       excludeEnvironmentSuffix: true
-      resourceGroup: <VAULT_RESOURCE_GROUP>
       secrets:
         - <SECRET_NAME>
         - <SECRET_NAME2>
     <VAULT_NAME_2>:
-      resourceGroup: <VAULT_RESOURCE_GROUP_2>
       secrets:
         - <SECRET_NAME>
         - <SECRET_NAME2>
 ```
 **Where**:
 - *<VAULT_NAME>*: Name of the vault to access without the environment tag i.e. `s2s` or `bulkscan`.
-- *<VAULT_RESOURCE_GROUP>*: Resource group for the vault. This also does not need the environment tag (i.e. for s2s vault it is `rpe-service-auth-provider`).
 - *<SECRET_NAME>* Secret name as it is in the vault. Note this is case and punctuation sensitive. i.e. in s2s there is the `microservicekey-cmcLegalFrontend` secret.
 - *excludeEnvironmentSuffix*: This is used for the global key vaults where there is not environment suffix ( e.g `-aat` ) required. It defaults to false if it is not there and should only be added if you are using a global key-vault.
 
