@@ -1,4 +1,4 @@
-{{ if or (and .Values.kind (eq .Values.kind "Job")) (and not .Values.kind (and .Values.global.job.kind (eq .Values.global.job.kind "Job"))) }}
+{{ if or (and .Values.kind (eq .Values.kind "Job")) (and (not .Values.kind) (and .Values.global.job.kind (eq .Values.global.job.kind "Job"))) }}
 ---
 apiVersion: batch/v1
 kind: Job
