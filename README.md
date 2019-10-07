@@ -53,7 +53,8 @@ The following table lists the configurable parameters of the Job chart and their
 
 | Parameter                  | Description                                | Default  |
 | -------------------------- | ------------------------------------------ | ----- |
-| `global.job.kind`          | Enumerated field to create a `CronJob` or `Job`     | `Job`     |
+| `global.job.kind`          | Enumerated field to create a `CronJob` or `Job`. It always overrides all other job kinds (see below)     | `Job`     |
+| `kind`                     | Enumerated field to create a `CronJob` or `Job` which is overridden by the global value (see above). This is useful when this chart is imported multiple times in another chart to add different kinds of jobs.     | `nil`     |
 | `schedule`                 | Cron expression for scheduling cron job. As the name suggests, its applicable and mandatory only if kind is `CronJob`    | `nil`     |
 | `startingDeadlineSeconds`  | Deadline in seconds for starting the job if it misses its scheduled time for any reason. Applicable only if kind is  `CronJob`   | `nil`     |
 | `concurrencyPolicy`        | It specifies how to treat concurrent executions of a job that is created by this cron job. Applicable only if kind is  `CronJob`   | `Allow`     |
