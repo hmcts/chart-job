@@ -3,10 +3,10 @@ CHART := job
 RELEASE := chart-${CHART}-release
 NAMESPACE := chart-tests
 TEST := ${RELEASE}-test-service
-ACR := hmctssandbox
-ACR_SUBSCRIPTION := DCD-CFT-Sandbox
-AKS_RESOURCE_GROUP := cnp-aks-sandbox-rg
-AKS_CLUSTER := cnp-aks-sandbox-cluster
+ACR := hmctspublic
+ACR_SUBSCRIPTION := DCD-CNP-DEV
+AKS_RESOURCE_GROUP := cnp-aks-rg
+AKS_CLUSTER := cnp-aks-cluster
 
 setup:
 	az account set --subscription ${ACR_SUBSCRIPTION}
