@@ -7,7 +7,7 @@ kind: CronJob
 spec:
   schedule: "{{ .Values.schedule }}"
   {{- if .Values.startingDeadlineSeconds }}
-  startingDeadlineSeconds: "{{ .Values.startingDeadlineSeconds }}"
+  startingDeadlineSeconds: {{int .Values.startingDeadlineSeconds }}
   {{- end }}
   {{- if .Values.concurrencyPolicy }}
   concurrencyPolicy: "{{ .Values.concurrencyPolicy }}"

@@ -9,12 +9,13 @@ keyVaults:
   "s2s":
     secrets:
       - microservicekey-cmcLegalFrontend
-kind: Job
+kind: CronJob
 global:
   tenantId: "531ff96d-0ae9-462a-8d2d-bec7c0b42082"
   environment: aat
   enableKeyVaults: true
 schedule: "*/1 * * * *"
+startingDeadlineSeconds: 1800
 labels:
   sample : sample-value
   another: another-value
