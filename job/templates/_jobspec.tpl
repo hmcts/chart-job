@@ -48,6 +48,12 @@ spec:
       containers:
       - image: {{ .Values.image }}
         name: {{ include "hmcts.releaseName" . }}
+        {{- with .Values.args }}
+        args:
+        {{- range . }}
+          - {{ . | quote }}
+        {{- end }}
+        {{- end }}
         securityContext:
           allowPrivilegeEscalation: false
         env:
@@ -66,10 +72,6 @@ spec:
                 {{- end }}
               {{- end }}
           {{- end -}}
-          {{- if "job.args" -}}
-          args:
-                {{- include "job.args" . | indent 8}}
-          {{- end }}
           {{- if .Values.environment -}}
               {{- range $key, $val := .Values.environment }}
         - name: {{ if $key | regexMatch "^[^.-]+$" -}}
@@ -86,7 +88,6 @@ spec:
           - configMapRef:
               name: {{ include "hmcts.releaseName" . }}
         {{- end }}
-
         {{- if and .Values.keyVaults .Values.global.enableKeyVaults }}
         volumeMounts:
           {{- range $key, $value := .Values.keyVaults }}
