@@ -66,7 +66,7 @@ spec:
                 {{- end }}
               {{- end }}
           {{- end -}}
-          {{- if job.args -}}
+          {{- if "job.args" -}}
           args:
                 {{- include "job.args" . | indent 8}}
           {{- end }}
