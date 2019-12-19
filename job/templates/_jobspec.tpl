@@ -66,6 +66,8 @@ spec:
                 {{- end }}
               {{- end }}
           {{- end -}}
+          {{- if job.args -}}
+              {{- include "job.args" . | indent 8}}
           {{- if .Values.environment -}}
               {{- range $key, $val := .Values.environment }}
         - name: {{ if $key | regexMatch "^[^.-]+$" -}}
