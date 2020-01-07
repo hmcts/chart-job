@@ -11,6 +11,10 @@ image: hmctssandbox.azurecr.io/hmcts/plum-batch:latest
 environment:
   TEST_VAR: test
   CONFIG_TEMPLATE: "{{ .Release.Name }}-config"
+args: 
+    - -X 
+    - GET
+    - https://www.apply-for-probate.service.gov.uk/caveats/health
 configmap:
   VAR_A: VALUE_A
   VAR_B: VALUE_B
@@ -76,6 +80,7 @@ The following table lists the configurable parameters of the Job chart and their
 | `labels`                   | Additional Labels to be added to Job Template Spec |  nil |
 | `keyVaults`                | Mappings of keyvaults to be mounted as flexvolumes (see Example Configuration) |  nil |
 | `aadIdentityName`          | If you wish to use pod identity for accessing the key vaults instead of a service principal, you need to set this with identity name |  nil |
+| `args`                | Argument passed to image |  nil |
 
 ## Adding Azure Key Vault Secrets
 Key vault secrets can be mounted to the container filesystem using what's called a [keyvault-flexvolume](https://github.com/Azure/kubernetes-keyvault-flexvol). A flexvolume is just a kubernetes volume from the user point of view. This means that the keyvault secrets are accessible as files after they have been mounted.
