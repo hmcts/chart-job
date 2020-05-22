@@ -26,8 +26,7 @@ keyVaults:
     secrets:
       - microservicekey-rd-user-profile-api
 global:
-  job:
-    kind: CronJob
+  jobKind: CronJob
   tenantId: "531ff96d-0ae9-462a-8d2d-bec7c0b42082"
   environment: saat
 schedule: "*/1 * * * *"
