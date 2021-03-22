@@ -18,3 +18,4 @@ global:
 backoffLimit: 6
 
 restartPolicy: OnFailure
+language: None
