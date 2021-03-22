@@ -18,9 +18,6 @@ args:
 configmap:
   VAR_A: VALUE_A
   VAR_B: VALUE_B
-labels:
-  sample : sample-value
-  another: another-value
 keyVaults:
   "s2s":
     secrets:
@@ -76,7 +73,6 @@ The following table lists the configurable parameters of the Job chart and their
 | `memoryLimits`             | Memory limits| `1024Mi`|
 | `cpuLimits`                | CPU limits | `2500m`|
 | `secrets`                  | Mappings of environment variables to service objects or pre-configured kubernetes secrets |  nil |
-| `labels`                   | Additional Labels to be added to Job Template Spec |  nil |
 | `keyVaults`                | Mappings of keyvaults to be mounted as flexvolumes (see Example Configuration) |  nil |
 | `aadIdentityName`          | If you wish to use pod identity for accessing the key vaults instead of a service principal, you need to set this with identity name |  nil |
 | `args`                | Argument passed to image |  nil |

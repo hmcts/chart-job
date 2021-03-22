@@ -16,9 +16,6 @@ global:
   enableKeyVaults: true
 schedule: "*/1 * * * *"
 startingDeadlineSeconds: 1800
-labels:
-  sample : sample-value
-  another: another-value
 args:
   - sample
   - another

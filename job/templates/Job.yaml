@@ -1,8 +1,9 @@
-{{- $jobKind := (default .Values.kind .Values.global.jobKind) -}}
+{{- $languageValues := (deepCopy .Values | merge (pluck .Values.language .Values | first) ) -}}
+  {{- $jobKind := (default $languageValues.kind $languageValues.global.jobKind) -}}
 {{ if (and $jobKind (eq $jobKind "Job")) }}
 ---
 apiVersion: batch/v1
 kind: Job
-{{ include "job.metadata" .}}
+{{ include "hmcts.metadata.v2" .}}
 {{ include "job.spec" .}}
   {{- end}}

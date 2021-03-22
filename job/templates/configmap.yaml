@@ -1,10 +1,1 @@
-{{- if .Values.configmap }}
----
-apiVersion: v1
-kind: ConfigMap
-{{ include "job.metadata" .}}
-data:
-  {{- range $key, $val := .Values.configmap }}
-  {{ $key }}: {{ $val | quote }}
-  {{- end}}
-{{- end}}
+{{- template "hmcts.configmap.v2.tpl" . -}}

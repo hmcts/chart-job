@@ -1,25 +1,26 @@
-{{- $jobKind := (default .Values.kind  .Values.global.jobKind) -}}
+{{- $languageValues := (deepCopy .Values | merge (pluck .Values.language .Values | first) ) -}}
+{{- $jobKind := (default $languageValues.kind  $languageValues.global.jobKind) -}}
 {{ if (and $jobKind (eq $jobKind "CronJob")) }}
 ---
 apiVersion: batch/v1beta1
 kind: CronJob
-{{ include "job.metadata" .}}
+{{ include "hmcts.metadata.v2" .}}
 spec:
-  schedule: "{{ .Values.schedule }}"
-  {{- if .Values.startingDeadlineSeconds }}
-  startingDeadlineSeconds: {{int .Values.startingDeadlineSeconds }}
+  schedule: "{{ $languageValues.schedule }}"
+  {{- if $languageValues.startingDeadlineSeconds }}
+  startingDeadlineSeconds: {{int $languageValues.startingDeadlineSeconds }}
   {{- end }}
-  {{- if .Values.concurrencyPolicy }}
-  concurrencyPolicy: "{{ .Values.concurrencyPolicy }}"
+  {{- if $languageValues.concurrencyPolicy }}
+  concurrencyPolicy: "{{ $languageValues.concurrencyPolicy }}"
   {{- end }}
-  {{- if .Values.successfulJobsHistoryLimit }}
-  successfulJobsHistoryLimit: "{{ .Values.successfulJobsHistoryLimit }}"
+  {{- if $languageValues.successfulJobsHistoryLimit }}
+  successfulJobsHistoryLimit: "{{ $languageValues.successfulJobsHistoryLimit }}"
   {{- end }}
-  {{- if .Values.failedJobsHistoryLimit }}
-  failedJobsHistoryLimit: "{{ .Values.failedJobsHistoryLimit }}"
+  {{- if $languageValues.failedJobsHistoryLimit }}
+  failedJobsHistoryLimit: "{{ $languageValues.failedJobsHistoryLimit }}"
   {{- end }}
-  {{- if .Values.suspend }}
-  suspend: {{ .Values.suspend }}
+  {{- if $languageValues.suspend }}
+  suspend: {{ $languageValues.suspend }}
   {{- end }}
   jobTemplate:
 {{ include "job.spec" . | indent 4}}
