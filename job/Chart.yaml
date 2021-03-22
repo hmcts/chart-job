@@ -10,5 +10,5 @@ keywords:
   - CronJob
 dependencies:
   - name: library
-    version: 0.5.4
+    version: 0.5.5
     repository: https://hmctspublic.azurecr.io/helm/v1/repo/
