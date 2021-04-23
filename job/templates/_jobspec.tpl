@@ -2,7 +2,10 @@
 Create job spec.
 */}}
 {{- define "job.spec" -}}
-{{- $languageValues := (deepCopy .Values | merge (pluck .Values.language .Values | first) ) -}}
+{{- $languageValues := deepCopy .Values}}
+{{- if hasKey .Values "language" -}}
+{{- $languageValues = (deepCopy .Values | merge (pluck .Values.language .Values | first) )}}
+{{- end -}}
 spec:
   {{- if $languageValues.backoffLimit }}
   backoffLimit: {{ $languageValues.backoffLimit }}
