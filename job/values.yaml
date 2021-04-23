@@ -22,7 +22,6 @@ global:
 backoffLimit: 6
 
 restartPolicy: OnFailure
-language: None
 dnsConfig:
   ndots: "3"
   singleRequestTcp: false
