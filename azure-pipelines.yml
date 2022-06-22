@@ -14,10 +14,14 @@ resources:
     name: hmcts/cnp-azuredevops-libraries
     endpoint: 'hmcts'
 
+variables:
+  - name: agentPool
+    value: ubuntu-18.04
+
 jobs:
 - job: Validate
   pool:
-    vmImage: 'Ubuntu 16.04'
+    vmImage: ${{ variables.agentPool }}
   steps:
   - template: steps/charts/validate.yaml@cnp-library
     parameters:
@@ -34,7 +38,7 @@ jobs:
       )
   dependsOn: Validate
   pool:
-    vmImage: 'Ubuntu 16.04'
+    vmImage: ${{ variables.agentPool }}
   steps:
   - template: steps/charts/release.yaml@cnp-library
     parameters:
