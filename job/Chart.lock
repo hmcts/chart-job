@@ -1,0 +1,6 @@
+dependencies:
+- name: library
+  repository: https://hmctspublic.azurecr.io/helm/v1/repo/
+  version: 1.1.7-alpha
+digest: sha256:5b246c1d192fb9a8e5331c4984cb250877e10043732b3616cd2de07d9c642f7f
+generated: "2023-01-12T13:03:22.880687Z"
