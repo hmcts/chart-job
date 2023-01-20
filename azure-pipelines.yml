@@ -16,7 +16,7 @@ resources:
 
 variables:
   - name: agentPool
-    value: ubuntu-18.04
+    value: ubuntu-latest
 
 jobs:
 - job: Validate
