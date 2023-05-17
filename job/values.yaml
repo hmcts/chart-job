@@ -25,3 +25,4 @@ restartPolicy: OnFailure
 dnsConfig:
   ndots: "3"
   singleRequestTcp: false
+concurrencyPolicy: Forbid
