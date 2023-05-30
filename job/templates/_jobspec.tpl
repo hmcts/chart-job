@@ -16,5 +16,5 @@ spec:
   {{- if $languageValues.ttlSecondsAfterFinished }}
   ttlSecondsAfterFinished: {{ $languageValues.ttlSecondsAfterFinished }}
   {{- end }}
-{{ include "hmcts.podtemplate.v2.tpl" . | indent 2 -}}
+{{ include "hmcts.podtemplate.v3.tpl" . | indent 2 -}}
 {{- end -}}
