@@ -1,7 +1,7 @@
 {{/*
 Create job spec.
 */}}
-{{- define "job.spec" -}}
+{{- define "job.spec.v1" -}}
 {{- $languageValues := deepCopy .Values}}
 {{- if hasKey .Values "language" -}}
 {{- $languageValues = (deepCopy .Values | merge (pluck .Values.language .Values | first) )}}
@@ -16,5 +16,5 @@ spec:
   {{- if $languageValues.ttlSecondsAfterFinished }}
   ttlSecondsAfterFinished: {{ $languageValues.ttlSecondsAfterFinished }}
   {{- end }}
-{{ include "hmcts.podtemplate.v3.tpl" . | indent 2 -}}
+{{ include "hmcts.podtemplate.v4.tpl" . | indent 2 -}}
 {{- end -}}
