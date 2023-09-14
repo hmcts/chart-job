@@ -17,10 +17,10 @@ spec:
   concurrencyPolicy: "{{ $languageValues.concurrencyPolicy }}"
   {{- end }}
   {{- if $languageValues.successfulJobsHistoryLimit }}
-  successfulJobsHistoryLimit: "{{ $languageValues.successfulJobsHistoryLimit }}"
+  successfulJobsHistoryLimit: {{ $languageValues.successfulJobsHistoryLimit }}
   {{- end }}
   {{- if $languageValues.failedJobsHistoryLimit }}
-  failedJobsHistoryLimit: "{{ $languageValues.failedJobsHistoryLimit }}"
+  failedJobsHistoryLimit: {{ $languageValues.failedJobsHistoryLimit }}
   {{- end }}
   {{- if $languageValues.suspend }}
   suspend: {{ $languageValues.suspend }}
