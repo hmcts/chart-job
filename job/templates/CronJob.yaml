@@ -26,5 +26,5 @@ spec:
   suspend: {{ $languageValues.suspend }}
   {{- end }}
   jobTemplate:
-{{ include "job.spec" . | indent 4}}
+{{ include "job.spec.v1" . | indent 4}}
 {{- end}}

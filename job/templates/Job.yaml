@@ -8,5 +8,5 @@
 apiVersion: batch/v1
 kind: Job
 {{ include "hmcts.metadata.v2" .}}
-{{ include "job.spec" .}}
+{{ include "job.spec.v1" .}}
   {{- end}}
