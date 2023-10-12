@@ -27,11 +27,11 @@ spec:
   {{- end }}
   {{- if $languageValues.operator.nodeSelector }}
   nodeSelector:
-{{ toYaml $languageValues.operator.nodeSelector | indent 4 }}
+{{ toYaml $languageValues.operator.nodeSelector | indent 8 }}
   {{- end }}
   {{- if $languageValues.operator.tolerations }}
   tolerations:
-{{ toYaml $languageValues.operator.tolerations | indent 4 }}
+{{ toYaml $languageValues.operator.tolerations | indent 8 }}
   {{- end }}
   jobTemplate:
 {{ include "job.spec.v1" . | indent 4}}
