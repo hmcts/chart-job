@@ -29,7 +29,5 @@ dnsConfig:
   singleRequestTcp: false
 concurrencyPolicy: Forbid
 useWorkloadIdentity: true
-template:
-  spec:
-    nodeSelector: {}
-    tolerations: []
+nodeSelector: {}
+tolerations: []
