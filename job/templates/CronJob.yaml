@@ -25,13 +25,13 @@ spec:
   {{- if $languageValues.suspend }}
   suspend: {{ $languageValues.suspend }}
   {{- end }}
-  {{- if $languageValues.operator.nodeSelector }}
+  {{- if .Values.operator.nodeSelector }}
   nodeSelector:
-{{ toYaml $languageValues.operator.nodeSelector | indent 8 }}
+{{ toYaml .Values.operator.nodeSelector | indent 8 }}
   {{- end }}
-  {{- if $languageValues.operator.tolerations }}
+  {{- if .Values.operator.tolerations }}
   tolerations:
-{{ toYaml $languageValues.operator.tolerations | indent 8 }}
+{{ toYaml .Values.operator.tolerations | indent 8 }}
   {{- end }}
   jobTemplate:
 {{ include "job.spec.v1" . | indent 4}}
