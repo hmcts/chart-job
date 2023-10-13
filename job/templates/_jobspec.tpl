@@ -18,13 +18,13 @@ spec:
   {{- end }}
   template:
     spec:
-      {{- if $languageValues.operator.nodeSelector }}
+      {{- if $languageValues.nodeSelector }}
       nodeSelector:
-      {{ toYaml $languageValues.operator.nodeSelector | indent 8 }}
+      {{ toYaml $languageValues.nodeSelector | indent 8 }}
       {{- end }}
-      {{- if $languageValues.operator.tolerations }}
+      {{- if $languageValues.tolerations }}
       tolerations:
-      {{ toYaml $languageValues.operator.tolerations | indent 8 }}
+      {{ toYaml $languageValues.tolerations | indent 8 }}
       {{- end }}
 {{ include "hmcts.podtemplate.v4.tpl" . | indent 2 -}}
 {{- end -}}
