@@ -16,5 +16,15 @@ spec:
   {{- if $languageValues.ttlSecondsAfterFinished }}
   ttlSecondsAfterFinished: {{ $languageValues.ttlSecondsAfterFinished }}
   {{- end }}
+  template:
+    spec:
+      {{- if $languageValues.operator.nodeSelector }}
+      nodeSelector:
+      {{ toYaml $languageValues.operator.nodeSelector | indent 8 }}
+      {{- end }}
+      {{- if $languageValues.operator.tolerations }}
+      tolerations:
+      {{ toYaml $languageValues.operator.tolerations | indent 8 }}
+      {{- end }}
 {{ include "hmcts.podtemplate.v4.tpl" . | indent 2 -}}
 {{- end -}}
