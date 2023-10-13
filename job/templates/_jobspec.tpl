@@ -18,11 +18,11 @@ spec:
   {{- end }}
   {{- if $languageValues.nodeSelector }}
   nodeSelector:
-  {{ toYaml $languageValues.nodeSelector | indent 8 }}
+  {{ toYaml $languageValues.nodeSelector | indent 6 }}
   {{- end }}
   {{- if $languageValues.tolerations }}
   tolerations:
-  {{ toYaml $languageValues.tolerations | indent 8 }}
+  {{ toYaml $languageValues.tolerations | indent 6 }}
   {{- end }}
 {{ include "hmcts.podtemplate.v4.tpl" . | indent 2 -}}
 {{- end -}}
