@@ -29,5 +29,10 @@ dnsConfig:
   singleRequestTcp: false
 concurrencyPolicy: Forbid
 useWorkloadIdentity: true
-nodeSelector: {}
-tolerations: []
+nodeSelector:
+  agentpool: cronjob
+tolerations:
+  - effect: NoSchedule
+    key: dedicated
+    operator: Equal
+    value: jobs
