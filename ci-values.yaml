@@ -19,10 +19,3 @@ startingDeadlineSeconds: 1800
 args:
   - sample
   - another
-nodeSelector:
-  agentpool: cronjob
-tolerations:
-  - effect: NoSchedule
-    key: dedicated
-    operator: Equal
-    value: jobs
