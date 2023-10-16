@@ -19,3 +19,5 @@ startingDeadlineSeconds: 1800
 args:
   - sample
   - another
+nodeSelector: {}
+tolerations: []
