@@ -1,6 +1,0 @@
-dependencies:
-- name: library
-  repository: https://hmctspublic.azurecr.io/helm/v1/repo/
-  version: 2.0.18-beta-ty2
-digest: sha256:e7534b51f947c8dc41504f0e07e211ba2c3178b9e33c6edd367ef81823b49242
-generated: "2023-10-17T11:38:48.540476+01:00"
