@@ -10,5 +10,5 @@ keywords:
   - CronJob
 dependencies:
   - name: library
-    version: 2.0.18.ty1
+    version: 2.0.18-tyler
     repository: https://hmctspublic.azurecr.io/helm/v1/repo/
