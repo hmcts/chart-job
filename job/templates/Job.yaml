@@ -8,13 +8,5 @@
 apiVersion: batch/v1
 kind: Job
 {{ include "hmcts.metadata.v2" .}}
-  {{- if $languageValues.operator.nodeSelector }}
-  nodeSelector:
-{{ toYaml $languageValues.operator.nodeSelector | indent 4 }}
-  {{- end }}
-  {{- if $languageValues.operator.tolerations }}
-  tolerations:
-{{ toYaml $languageValues.operator.tolerations | indent 4 }}
-  {{- end }}
 {{ include "job.spec.v1" .}}
   {{- end}}
