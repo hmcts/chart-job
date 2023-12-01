@@ -4,15 +4,20 @@
 {{- end -}}
 {{- $jobKind := (default $languageValues.kind  $languageValues.global.jobKind) -}}
 {{ if (and $jobKind (eq $jobKind "CronJob")) }}
+{{- $globals := $languageValues.global -}}
 ---
 apiVersion: batch/v1
 kind: CronJob
 {{ include "hmcts.metadata.v2" .}}
 spec:
   schedule: "{{ $languageValues.schedule }}"
-  {{- if $languageValues.startingDeadlineSeconds }}
-  startingDeadlineSeconds: {{int $languageValues.startingDeadlineSeconds }}
-  {{- end }}
+  {{- if eq $globals.cluster $globals.activeCronCluster }}
+  suspend: {{ default false $languagValues.suspend }}
+  startingDeadlineSeconds: {{int default $globals.startingDeadlineSeconds $languageValues.startingDeadlineSeconds }}
+  {{ else }}
+  suspend: true
+  startingDeadlineSeconds: 5
+  {{-- end }}
   {{- if $languageValues.concurrencyPolicy }}
   concurrencyPolicy: "{{ $languageValues.concurrencyPolicy }}"
   {{- end }}
@@ -21,9 +26,6 @@ spec:
   {{- end }}
   {{- if $languageValues.failedJobsHistoryLimit }}
   failedJobsHistoryLimit: {{ $languageValues.failedJobsHistoryLimit }}
-  {{- end }}
-  {{- if $languageValues.suspend }}
-  suspend: {{ $languageValues.suspend }}
   {{- end }}
   jobTemplate:
 {{ include "job.spec.v1" . | indent 4}}
