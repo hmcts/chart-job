@@ -12,7 +12,7 @@ kind: CronJob
 spec:
   schedule: "{{ $languageValues.schedule }}"
   {{- if eq $globals.cluster $globals.activeCronCluster }}
-  suspend: {{ default false $languagValues.suspend }}
+  suspend: {{ default false $languageValues.suspend }}
   startingDeadlineSeconds: {{int default $globals.startingDeadlineSeconds $languageValues.startingDeadlineSeconds }}
   {{ else }}
   suspend: true
