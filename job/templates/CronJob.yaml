@@ -16,7 +16,7 @@ spec:
   suspend: false
   startingDeadlineSeconds: {{int default $globals.startingDeadlineSeconds $languageValues.startingDeadlineSeconds }}
   {{- else }}
-  suspend: {{ $globals.activeCronCluster }}
+  suspend: {{ not $globals.activeCronCluster }}
   {{- if $globals.activeCronCluster }}
   startingDeadlineSeconds: {{int default 1200 $languageValues.startingDeadlineSeconds }}
   {{- else }}
