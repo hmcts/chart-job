@@ -11,16 +11,14 @@ apiVersion: batch/v1
 kind: CronJob
 {{ include "hmcts.metadata.v2" .}}
 spec:
-  {{- if $concurrentCronJob }}
   schedule: "{{ $languageValues.schedule }}"
+  {{- if $concurrentCronJob }}
   suspend: false
   startingDeadlineSeconds: {{int default $globals.startingDeadlineSeconds $languageValues.startingDeadlineSeconds }}
   {{- else if and (not .Values.globals.concurrentCronJob) .Values.globals.activeCronCluster }}
-  schedule: "{{ $languageValues.schedule }}"
   suspend: false
   startingDeadlineSeconds: {{int default $globals.startingDeadlineSeconds $languageValues.startingDeadlineSeconds }}
   {{- else if and (not .Values.globals.concurrentCronJob) (not .Values.globals.activeCronCluster) }}
-  schedule: "{{ $languageValues.schedule }}"
   suspend: true
   startingDeadlineSeconds: 5
   {{- end }}
