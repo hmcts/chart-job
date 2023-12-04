@@ -5,12 +5,13 @@
 {{- $jobKind := (default $languageValues.kind  $languageValues.global.jobKind) -}}
 {{ if (and $jobKind (eq $jobKind "CronJob")) }}
 {{- $globals := $languageValues.global -}}
+{{-- $concurrentCronJob := (default $globals.concurrentCronJob $languageValues.concurrentCronJob) -}}
 ---
 apiVersion: batch/v1
 kind: CronJob
 {{ include "hmcts.metadata.v2" .}}
 spec:
-  {{- if $globals.concurrentCronJob }}
+  {{- if $concurrentCronJob }}
   schedule: "{{ $languageValues.schedule }}"
   suspend: false
   startingDeadlineSeconds: {{int default $globals.startingDeadlineSeconds $languageValues.startingDeadlineSeconds }}
