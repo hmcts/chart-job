@@ -15,11 +15,11 @@ spec:
   {{- if $concurrentCronJob }}
   suspend: false
   startingDeadlineSeconds: {{int default $globals.startingDeadlineSeconds $languageValues.startingDeadlineSeconds }}
-  {{- else if and (not .Values.globals.concurrentCronJob) .Values.globals.activeCronCluster }}
-  suspend: false
-  startingDeadlineSeconds: {{int default $globals.startingDeadlineSeconds $languageValues.startingDeadlineSeconds }}
-  {{- else if and (not .Values.globals.concurrentCronJob) (not .Values.globals.activeCronCluster) }}
-  suspend: true
+  {{- else }}
+  suspend: {{ $globals.activeCronCluster }}
+  {{- if $globals.activeCronCluster }}
+  startingDeadlineSeconds: {{int default 1200 $languageValues.startingDeadlineSeconds }}
+  {{- else }}
   startingDeadlineSeconds: 5
   {{- end }}
   {{- if $languageValues.concurrencyPolicy }}
