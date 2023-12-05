@@ -6,6 +6,11 @@
 {{ if (and $jobKind (eq $jobKind "CronJob")) }}
 {{- $globals := $languageValues.global -}}
 {{- $activeOnBothClusters := (default $globals.activeOnBothClusters $languageValues.activeOnBothClusters) -}}
+{{- if eq $globals.activeCronCluster "true" -}}
+{{- $activeCronCluster = true }}
+{{- else }}
+{{- $activeCronCluster = false }}
+{{- end -}}
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -16,8 +21,8 @@ spec:
   startingDeadlineSeconds: {{ int $languageValues.startingDeadlineSeconds }}
   suspend: false
   {{- else }}
-  suspend: {{ not $globals.activeCronCluster }}
-  startingDeadlineSeconds: {{ $globals.activeCronCluster | ternary $languageValues.startingDeadlineSeconds 5 }}
+  suspend: {{ not $activeCronCluster }}
+  startingDeadlineSeconds: {{ $activeCronCluster | ternary $languageValues.startingDeadlineSeconds 5 }}
   {{- end }}
   {{- if $languageValues.concurrencyPolicy }}
   concurrencyPolicy: "{{ $languageValues.concurrencyPolicy }}"
