@@ -6,6 +6,7 @@
 {{ if (and $jobKind (eq $jobKind "CronJob")) }}
 {{- $globals := $languageValues.global -}}
 {{- $activeOnBothClusters := (default $globals.activeOnBothClusters $languageValues.activeOnBothClusters) -}}
+{{- $activeCronCluster := false -}}
 {{- if eq $globals.activeCronCluster "true" -}}
 {{- $activeCronCluster = true }}
 {{- else }}
