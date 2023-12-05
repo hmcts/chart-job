@@ -7,9 +7,9 @@
 {{- $globals := $languageValues.global -}}
 {{- $activeOnBothClusters := (default $globals.activeOnBothClusters $languageValues.activeOnBothClusters) -}}
 {{- if eq $globals.activeCronCluster "true" -}}
-{{- $activeCronCluster = true }}
+{{- $activeCronCluster := true }}
 {{- else }}
-{{- $activeCronCluster = false }}
+{{- $activeCronCluster := false }}
 {{- end -}}
 ---
 apiVersion: batch/v1
