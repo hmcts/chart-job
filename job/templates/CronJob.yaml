@@ -6,7 +6,7 @@
 {{ if (and $jobKind (eq $jobKind "CronJob")) }}
 {{- $globals := $languageValues.global -}}
 {{- $concurrentCronJob := (default $globals.concurrentCronJob $languageValues.concurrentCronJob) -}}
-{{- $startingDeadlineSecondsDefault = 1200 -}}
+{{- $startingDeadlineSecondsDefault := 1200 -}}
 ---
 apiVersion: batch/v1
 kind: CronJob
