@@ -14,13 +14,9 @@ spec:
   schedule: "{{ $languageValues.schedule }}"
   {{- if $concurrentCronJob }}
   suspend: false
-  startingDeadlineSeconds: {{int default 1200 $languageValues.startingDeadlineSeconds }}
   {{- else }}
   suspend: {{ not $globals.activeCronCluster }}
-  {{- if $globals.activeCronCluster }}
-  startingDeadlineSeconds: {{int default 1200 $languageValues.startingDeadlineSeconds }}
-  {{- else }}
-  startingDeadlineSeconds: 5
+  startingDeadlineSeconds: {{ globals.activeCronCluster | ternary int default 1200 $languageValues.startingDeadlineSeconds 5 }}
   {{- end }}
   {{- if $languageValues.concurrencyPolicy }}
   concurrencyPolicy: "{{ $languageValues.concurrencyPolicy }}"
