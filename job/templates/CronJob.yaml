@@ -6,6 +6,7 @@
 {{ if (and $jobKind (eq $jobKind "CronJob")) }}
 {{- $globals := $languageValues.global -}}
 {{- $concurrentCronJob := (default $globals.concurrentCronJob $languageValues.concurrentCronJob) -}}
+{{- $startingDeadlineSecondsDefault = 1200 -}}
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -13,10 +14,11 @@ kind: CronJob
 spec:
   schedule: "{{ $languageValues.schedule }}"
   {{- if $concurrentCronJob }}
+  startingDeadlineSeconds: {{ int default $startingDeadlineSecondsDefault $languageValues.startingDeadlineSeconds }}
   suspend: false
   {{- else }}
   suspend: {{ not $globals.activeCronCluster }}
-  startingDeadlineSeconds: {{ globals.activeCronCluster | ternary int default 1200 $languageValues.startingDeadlineSeconds 5 }}
+  startingDeadlineSeconds: {{ globals.activeCronCluster | ternary int default $startingDeadlineSecondsDefault $languageValues.startingDeadlineSeconds 5 }}
   {{- end }}
   {{- if $languageValues.concurrencyPolicy }}
   concurrencyPolicy: "{{ $languageValues.concurrencyPolicy }}"
