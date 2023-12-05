@@ -1,18 +1,18 @@
 {{- $languageValues := deepCopy .Values}}
 {{- if hasKey .Values "language" -}}
 {{- $languageValues = (deepCopy .Values | merge (pluck .Values.language .Values | first) )}}
-{{- end -}}
+{{- end -}} 
 {{- $jobKind := (default $languageValues.kind  $languageValues.global.jobKind) -}}
 {{ if (and $jobKind (eq $jobKind "CronJob")) }}
 {{- $globals := $languageValues.global -}}
-{{- $concurrentCronJob := (default $globals.concurrentCronJob $languageValues.concurrentCronJob) -}}
+{{- $activeOnBothClusters := (default $globals.activeOnBothClusters $languageValues.activeOnBothClusters) -}}
 ---
 apiVersion: batch/v1
 kind: CronJob
 {{ include "hmcts.metadata.v2" .}}
 spec:
   schedule: "{{ $languageValues.schedule }}"
-  {{- if $concurrentCronJob }}
+  {{- if $activeOnBothClusters }}
   startingDeadlineSeconds: {{ int $languageValues.startingDeadlineSeconds }}
   suspend: false
   {{- else }}
