@@ -24,8 +24,8 @@ spec:
   startingDeadlineSeconds: {{ int $languageValues.startingDeadlineSeconds }}
   suspend: false
   {{- else }}
-  suspend: {{ not $activeCronCluster }}
-  startingDeadlineSeconds: {{ $activeCronCluster | ternary $languageValues.startingDeadlineSeconds 5 }}
+  suspend: {{ not $globals.activeCronCluster }}
+  startingDeadlineSeconds: {{ $globals.activeCronCluster | ternary $languageValues.startingDeadlineSeconds 5 }}
   {{- end }}
   {{- if $languageValues.concurrencyPolicy }}
   concurrencyPolicy: "{{ $languageValues.concurrencyPolicy }}"
