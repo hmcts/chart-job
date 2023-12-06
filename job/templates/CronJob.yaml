@@ -7,11 +7,11 @@
 {{- $globals := $languageValues.global -}}
 {{- $activeOnBothClusters := (default $globals.activeOnBothClusters $languageValues.activeOnBothClusters) -}}
 {{- $activeCronCluster := false -}}
-{{- if eq $globals.activeCronCluster "true" -}}
-{{- $activeCronCluster = true }}
-{{- else }}
-{{- $activeCronCluster = false }}
-{{- end -}}
+#{{- if eq $globals.activeCronCluster "true" -}}
+#{{- $activeCronCluster = true }}
+#{{- else }}
+#{{- $activeCronCluster = false }}
+#{{- end -}}
 ---
 apiVersion: batch/v1
 kind: CronJob
