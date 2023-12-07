@@ -52,7 +52,7 @@ Chart-job v2.0.0 introduced an active cluster check for scheduling CronJobs. Thi
 
 Prior to this cronjobs were often deployed per-cluster with disparate schedules within an environment to satisfy redundancy while avoiding concurrency.
 
-The active cluster check can be bypassed using the _disableActiveClusterCheck_ parameter if a cronjob needs to run on both clusters. In all other cases this is not advised.
+The active cluster check can be bypassed using the _disableActiveClusterCheck_ parameter if a cronjob needs to run on all clusters in an environment. In all other cases this is not advised.
 
 
 ## Configuration
