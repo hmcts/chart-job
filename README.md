@@ -46,6 +46,14 @@ secrets:
 - **key** is the named secret in the secret reference.
 - **disabled** is optional and used to disable setting this environment value. This can be used to override the behaviour of default chart secrets. 
 
+## Active Cluster Check for CronJobs
+
+Chart-job v2.0.0 introduced an active cluster check for scheduling CronJobs. This ensures that a cronjob is enabled only for the active cluster in an environment. When the active cluster is changed, cronjob scheduling will automatically follow to the new active cluster.
+
+Prior to this cronjobs were often deployed per-cluster with disparate schedules within an environment to satisfy redundancy while avoiding concurrency.
+
+The active cluster check can be bypassed using the _disableActiveClusterCheck_ parameter if a cronjob needs to run on both clusters. In all other cases this is not advised.
+
 
 ## Configuration
 
@@ -56,6 +64,7 @@ The following table lists the configurable parameters of the Job chart and their
 | `global.jobKind`           | Enumerated field to create a `CronJob` or `Job`. It always overrides all other job kinds (see below)     | `Job`     |
 | `kind`                     | Enumerated field to create a `CronJob` or `Job` which is overridden by the global value (see above). This is useful when this chart is imported multiple times in another chart to add different kinds of jobs.     | `nil`     |
 | `schedule`                 | Cron expression for scheduling cron job. As the name suggests, its applicable and mandatory only if kind is `CronJob`    | `nil`     |
+| `disableActiveClusterCheck`| Bool to toggle active cluster check on & off. For almost all cases, this should be left disabled. Applicable only if kind is  `CronJob` | `False` |
 | `startingDeadlineSeconds`  | Deadline in seconds for starting the job if it misses its scheduled time for any reason. Applicable only if kind is  `CronJob`   | `nil`     |
 | `concurrencyPolicy`        | It specifies how to treat concurrent executions of a job that is created by this cron job. Applicable only if kind is  `CronJob`   | `Forbid`     |
 | `successfulJobsHistoryLimit`| The number of completed jobs to be kept. Applicable only if kind is  `CronJob`    | `3`     |
