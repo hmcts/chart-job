@@ -21,8 +21,7 @@ startingDeadlineSeconds: 1200
 global:
   enableKeyVaults: false
   disableActiveClusterCheck: false
-  # needs to be string due to passing down of postBuild substition
-  activeCronCluster: "false"
+  activeCronCluster: false
 # The number of retries before considering a Job as failed
 backoffLimit: 6
 

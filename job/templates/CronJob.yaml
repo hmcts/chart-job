@@ -7,7 +7,7 @@
 {{- $globals := $languageValues.global -}}
 {{- $disableActiveClusterCheck := (default $globals.disableActiveClusterCheck $languageValues.disableActiveClusterCheck) -}}
 {{- $activeCronCluster := false -}}
-{{- if eq $globals.activeCronCluster "true" -}}
+{{- if eq (toString $globals.activeCronCluster) "true" -}}
 {{- $activeCronCluster = true }}
 {{- else }}
 {{- $activeCronCluster = false }}
