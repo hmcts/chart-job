@@ -5,7 +5,7 @@
 {{- $jobKind := (default $languageValues.kind  $languageValues.global.jobKind) -}}
 {{ if (and $jobKind (eq $jobKind "CronJob")) }}
 {{- $globals := $languageValues.global -}}
-{{- $activeOnBothClusters := (default $globals.activeOnBothClusters $languageValues.activeOnBothClusters) -}}
+{{- $disableActiveClusterCheck := (default $globals.disableActiveClusterCheck $languageValues.disableActiveClusterCheck) -}}
 {{- $activeCronCluster := false -}}
 {{- if eq $globals.activeCronCluster "true" -}}
 {{- $activeCronCluster = true }}
@@ -18,7 +18,7 @@ kind: CronJob
 {{ include "hmcts.metadata.v2" .}}
 spec:
   schedule: "{{ $languageValues.schedule }}"
-  {{- if $activeOnBothClusters }}
+  {{- if $disableActiveClusterCheck }}
   startingDeadlineSeconds: {{ int $languageValues.startingDeadlineSeconds }}
   suspend: false
   {{- else }}
