@@ -1,17 +1,29 @@
 {{- $languageValues := deepCopy .Values}}
 {{- if hasKey .Values "language" -}}
 {{- $languageValues = (deepCopy .Values | merge (pluck .Values.language .Values | first) )}}
-{{- end -}}
+{{- end -}} 
 {{- $jobKind := (default $languageValues.kind  $languageValues.global.jobKind) -}}
 {{ if (and $jobKind (eq $jobKind "CronJob")) }}
+{{- $globals := $languageValues.global -}}
+{{- $disableActiveClusterCheck := (default $globals.disableActiveClusterCheck $languageValues.disableActiveClusterCheck) -}}
+{{- $activeCronCluster := false -}}
+{{- if eq (toString $globals.activeCronCluster) "true" -}}
+{{- $activeCronCluster = true }}
+{{- else }}
+{{- $activeCronCluster = false }}
+{{- end -}}
 ---
 apiVersion: batch/v1
 kind: CronJob
 {{ include "hmcts.metadata.v2" .}}
 spec:
   schedule: "{{ $languageValues.schedule }}"
-  {{- if $languageValues.startingDeadlineSeconds }}
-  startingDeadlineSeconds: {{int $languageValues.startingDeadlineSeconds }}
+  {{- if $disableActiveClusterCheck }}
+  startingDeadlineSeconds: {{ int $languageValues.startingDeadlineSeconds }}
+  suspend: false
+  {{- else }}
+  suspend: {{ not $activeCronCluster }}
+  startingDeadlineSeconds: {{ $activeCronCluster | ternary $languageValues.startingDeadlineSeconds 5 }}
   {{- end }}
   {{- if $languageValues.concurrencyPolicy }}
   concurrencyPolicy: "{{ $languageValues.concurrencyPolicy }}"
@@ -21,9 +33,6 @@ spec:
   {{- end }}
   {{- if $languageValues.failedJobsHistoryLimit }}
   failedJobsHistoryLimit: {{ $languageValues.failedJobsHistoryLimit }}
-  {{- end }}
-  {{- if $languageValues.suspend }}
-  suspend: {{ $languageValues.suspend }}
   {{- end }}
   jobTemplate:
 {{ include "job.spec.v1" . | indent 4}}
