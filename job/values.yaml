@@ -11,6 +11,8 @@ devmemoryRequests: '512Mi'
 devcpuRequests: '25m'
 devmemoryLimits: '1024Mi'
 devcpuLimits: '2500m'
+spotInstances:
+  enabled: false
 # Kind of Job to be created. It can be a Job or a CronJob
 kind: Job
 
