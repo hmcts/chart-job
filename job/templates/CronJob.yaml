@@ -35,5 +35,5 @@ spec:
   failedJobsHistoryLimit: {{ $languageValues.failedJobsHistoryLimit }}
   {{- end }}
   jobTemplate:
-{{ include "job.spec.v1" . | indent 4}}
+{{ include "job.spec.v2" . | indent 4}}
 {{- end}}
