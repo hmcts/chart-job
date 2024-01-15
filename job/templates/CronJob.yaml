@@ -20,7 +20,7 @@ spec:
   schedule: "{{ $languageValues.schedule }}"
   {{- if $disableActiveClusterCheck }}
   startingDeadlineSeconds: {{ int $languageValues.startingDeadlineSeconds }}
-  suspend: {{ int $languageValues.suspend }}
+  suspend: {{ $languageValues.suspend }}
   {{- else }}
   {{ if $languageValues.suspend }}
   suspend: true
