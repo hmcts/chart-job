@@ -22,7 +22,7 @@ spec:
   startingDeadlineSeconds: {{ int $languageValues.startingDeadlineSeconds }}
   suspend: {{ int $languageValues.suspend }}
   {{- else }}
-  {{ if eq $languageValues.suspend true }}
+  {{ if $languageValues.suspend }}
   suspend: true
   startingDeadlineSeconds: 5
   {{- else }}
