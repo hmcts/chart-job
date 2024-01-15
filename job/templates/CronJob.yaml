@@ -20,10 +20,15 @@ spec:
   schedule: "{{ $languageValues.schedule }}"
   {{- if $disableActiveClusterCheck }}
   startingDeadlineSeconds: {{ int $languageValues.startingDeadlineSeconds }}
-  suspend: false
+  suspend: {{ $languageValues.suspend }}
+  {{- else }}
+  {{ if $languageValues.suspend }}
+  suspend: true
+  startingDeadlineSeconds: 5
   {{- else }}
   suspend: {{ not $activeCronCluster }}
   startingDeadlineSeconds: {{ $activeCronCluster | ternary $languageValues.startingDeadlineSeconds 5 }}
+  {{- end }}
   {{- end }}
   {{- if $languageValues.concurrencyPolicy }}
   concurrencyPolicy: "{{ $languageValues.concurrencyPolicy }}"
