@@ -29,6 +29,7 @@ spec:
   suspend: {{ not $activeCronCluster }}
   startingDeadlineSeconds: {{ $activeCronCluster | ternary $languageValues.startingDeadlineSeconds 5 }}
   {{- end }}
+  {{- end }}
   {{- if $languageValues.concurrencyPolicy }}
   concurrencyPolicy: "{{ $languageValues.concurrencyPolicy }}"
   {{- end }}
