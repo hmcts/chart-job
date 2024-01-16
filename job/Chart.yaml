@@ -4,11 +4,11 @@ description: A Helm chart for HMCTS Kubernetes Job / CronJob
 name: job
 # This is the chart version. This doesn't need to be incremented on every change.
 # It is managed by release pipeline based on Github tag
-version: 0.1.2
+version: 0.1.3
 keywords:
   - Job
   - CronJob
 dependencies:
   - name: library
-    version: 2.1.0
+    version: 2.1.1
     repository: https://hmctspublic.azurecr.io/helm/v1/repo/
