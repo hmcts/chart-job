@@ -1,0 +1,159 @@
+suite: CronJob conditional rendering
+templates:
+  - templates/CronJob.yaml
+tests:
+  - it: renders a CronJob when kind is CronJob
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: CronJob
+      schedule: "*/5 * * * *"
+      startingDeadlineSeconds: 1200
+      disableActiveClusterCheck: true
+      suspend: false
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: CronJob
+
+  - it: is absent when kind is Job
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: Job
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: suspend is true and startingDeadlineSeconds is 5 when activeCronCluster is false
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: CronJob
+      schedule: "*/5 * * * *"
+      startingDeadlineSeconds: 1200
+      global:
+        activeCronCluster: false
+        disableActiveClusterCheck: false
+    asserts:
+      - equal:
+          path: spec.suspend
+          value: true
+      - equal:
+          path: spec.startingDeadlineSeconds
+          value: 5
+
+  - it: suspend is false and startingDeadlineSeconds uses value when activeCronCluster is true
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: CronJob
+      schedule: "*/5 * * * *"
+      startingDeadlineSeconds: 1200
+      global:
+        activeCronCluster: true
+        disableActiveClusterCheck: false
+    asserts:
+      - equal:
+          path: spec.suspend
+          value: false
+      - equal:
+          path: spec.startingDeadlineSeconds
+          value: 1200
+
+  - it: suspend forced to true with startingDeadlineSeconds 5 when suspend value set and disableActiveClusterCheck false
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: CronJob
+      schedule: "*/5 * * * *"
+      startingDeadlineSeconds: 1200
+      suspend: true
+      global:
+        activeCronCluster: true
+        disableActiveClusterCheck: false
+    asserts:
+      - equal:
+          path: spec.suspend
+          value: true
+      - equal:
+          path: spec.startingDeadlineSeconds
+          value: 5
+
+  - it: suspend and startingDeadlineSeconds taken directly from values when disableActiveClusterCheck is true
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: CronJob
+      schedule: "*/5 * * * *"
+      startingDeadlineSeconds: 900
+      suspend: false
+      disableActiveClusterCheck: true
+    asserts:
+      - equal:
+          path: spec.suspend
+          value: false
+      - equal:
+          path: spec.startingDeadlineSeconds
+          value: 900
+
+  - it: concurrencyPolicy is rendered when set
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: CronJob
+      schedule: "*/5 * * * *"
+      startingDeadlineSeconds: 1200
+      disableActiveClusterCheck: true
+      suspend: false
+      concurrencyPolicy: Forbid
+    asserts:
+      - equal:
+          path: spec.concurrencyPolicy
+          value: Forbid
+
+  - it: successfulJobsHistoryLimit is rendered when set
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: CronJob
+      schedule: "*/5 * * * *"
+      startingDeadlineSeconds: 1200
+      disableActiveClusterCheck: true
+      suspend: false
+      successfulJobsHistoryLimit: 3
+    asserts:
+      - equal:
+          path: spec.successfulJobsHistoryLimit
+          value: 3
+
+  - it: successfulJobsHistoryLimit is absent when not set
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: CronJob
+      schedule: "*/5 * * * *"
+      startingDeadlineSeconds: 1200
+      disableActiveClusterCheck: true
+      suspend: false
+    asserts:
+      - notExists:
+          path: spec.successfulJobsHistoryLimit
+
+  - it: failedJobsHistoryLimit is rendered when set
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: CronJob
+      schedule: "*/5 * * * *"
+      startingDeadlineSeconds: 1200
+      disableActiveClusterCheck: true
+      suspend: false
+      failedJobsHistoryLimit: 2
+    asserts:
+      - equal:
+          path: spec.failedJobsHistoryLimit
+          value: 2
+
+  - it: failedJobsHistoryLimit is absent when not set
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: CronJob
+      schedule: "*/5 * * * *"
+      startingDeadlineSeconds: 1200
+      disableActiveClusterCheck: true
+      suspend: false
+    asserts:
+      - notExists:
+          path: spec.failedJobsHistoryLimit

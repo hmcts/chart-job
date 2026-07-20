@@ -1,0 +1,46 @@
+suite: Job conditional rendering
+templates:
+  - templates/Job.yaml
+tests:
+  - it: renders a Job when kind is Job
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: Job
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Job
+
+  - it: is absent when kind is CronJob
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: CronJob
+      schedule: "*/5 * * * *"
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: global.jobKind overrides kind to Job
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: CronJob
+      schedule: "*/5 * * * *"
+      global:
+        jobKind: Job
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Job
+
+  - it: global.jobKind overrides kind to CronJob (Job absent)
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: Job
+      global:
+        jobKind: CronJob
+      schedule: "*/5 * * * *"
+    asserts:
+      - hasDocuments:
+          count: 0

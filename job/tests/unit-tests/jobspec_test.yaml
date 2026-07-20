@@ -1,0 +1,58 @@
+suite: job spec conditionals (_jobspec.tpl)
+templates:
+  - templates/Job.yaml
+tests:
+  - it: ttlSecondsAfterFinished is rendered when set
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: Job
+      ttlSecondsAfterFinished: 120
+    asserts:
+      - equal:
+          path: spec.ttlSecondsAfterFinished
+          value: 120
+
+  - it: ttlSecondsAfterFinished is absent when not set
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: Job
+    asserts:
+      - notExists:
+          path: spec.ttlSecondsAfterFinished
+
+  - it: activeDeadlineSeconds is rendered when set
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: Job
+      activeDeadlineSeconds: 300
+    asserts:
+      - equal:
+          path: spec.activeDeadlineSeconds
+          value: 300
+
+  - it: activeDeadlineSeconds is absent when not set
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: Job
+    asserts:
+      - notExists:
+          path: spec.activeDeadlineSeconds
+
+  - it: backoffLimit is rendered when set
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: Job
+      backoffLimit: 3
+    asserts:
+      - equal:
+          path: spec.backoffLimit
+          value: 3
+
+  - it: backoffLimit is absent when not set
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: Job
+      backoffLimit: 0
+    asserts:
+      - notExists:
+          path: spec.backoffLimit
