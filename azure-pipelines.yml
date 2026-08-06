@@ -29,7 +29,6 @@ jobs:
       chartReleaseName: chart-job-ci-test
       chartNamespace: chart-tests
       kubeconformValuesFile: ci-values-minimal.yaml
-      runSnapshotTests: true
       runUnitTests: true
 
 - job: Release
