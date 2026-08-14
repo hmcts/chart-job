@@ -115,6 +115,21 @@ tests:
           path: spec.concurrencyPolicy
           value: Forbid
 
+  - it: concurrencyPolicy is absent when not set
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: CronJob
+      schedule: "*/5 * * * *"
+      startingDeadlineSeconds: 1200
+      disableActiveClusterCheck: true
+      suspend: false
+      # values.yaml defaults concurrencyPolicy to "Forbid", so it must be explicitly
+      # cleared here to genuinely exercise the absent branch
+      concurrencyPolicy: null
+    asserts:
+      - notExists:
+          path: spec.concurrencyPolicy
+
   - it: successfulJobsHistoryLimit is rendered when set
     set:
       image: hmctspublic.azurecr.io/test/app:latest
