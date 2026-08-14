@@ -30,6 +30,9 @@ tests:
       kind: CronJob
       schedule: "*/5 * * * *"
       startingDeadlineSeconds: 1200
+      # top-level disableActiveClusterCheck takes precedence over global (see CronJob.yaml),
+      # so it must be overridden here too - ci-values-minimal.yaml sets it true by default
+      disableActiveClusterCheck: false
       global:
         activeCronCluster: false
         disableActiveClusterCheck: false
@@ -47,6 +50,9 @@ tests:
       kind: CronJob
       schedule: "*/5 * * * *"
       startingDeadlineSeconds: 1200
+      # top-level disableActiveClusterCheck takes precedence over global (see CronJob.yaml),
+      # so it must be overridden here too - ci-values-minimal.yaml sets it true by default
+      disableActiveClusterCheck: false
       global:
         activeCronCluster: true
         disableActiveClusterCheck: false
@@ -65,6 +71,9 @@ tests:
       schedule: "*/5 * * * *"
       startingDeadlineSeconds: 1200
       suspend: true
+      # top-level disableActiveClusterCheck takes precedence over global (see CronJob.yaml),
+      # so it must be overridden here too - ci-values-minimal.yaml sets it true by default
+      disableActiveClusterCheck: false
       global:
         activeCronCluster: true
         disableActiveClusterCheck: false
@@ -165,6 +174,10 @@ tests:
       schedule: "*/5 * * * *"
       startingDeadlineSeconds: 900
       suspend: false
+      # explicitly unset the top-level key (ci-values-minimal.yaml forces it true by default)
+      # so this test genuinely exercises the fallback to global, rather than passing
+      # coincidentally because the top-level default was already true
+      disableActiveClusterCheck: null
       global:
         disableActiveClusterCheck: true
     asserts:
