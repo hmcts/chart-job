@@ -44,3 +44,29 @@ tests:
     asserts:
       - hasDocuments:
           count: 0
+
+  - it: language values override kind, hiding Job when the language override sets CronJob
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: Job
+      schedule: "*/5 * * * *"
+      language: java
+      java:
+        kind: CronJob
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: language values override kind, rendering Job when the language override sets Job
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: CronJob
+      schedule: "*/5 * * * *"
+      language: java
+      java:
+        kind: Job
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Job

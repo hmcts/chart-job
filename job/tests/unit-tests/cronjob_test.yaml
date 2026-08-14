@@ -157,3 +157,40 @@ tests:
     asserts:
       - notExists:
           path: spec.failedJobsHistoryLimit
+
+  - it: disableActiveClusterCheck falls back to global value when not set locally
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: CronJob
+      schedule: "*/5 * * * *"
+      startingDeadlineSeconds: 900
+      suspend: false
+      global:
+        disableActiveClusterCheck: true
+    asserts:
+      - equal:
+          path: spec.suspend
+          value: false
+      - equal:
+          path: spec.startingDeadlineSeconds
+          value: 900
+
+  - it: language values override kind to CronJob while unrelated top-level values still apply
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: Job
+      schedule: "*/5 * * * *"
+      startingDeadlineSeconds: 1200
+      disableActiveClusterCheck: true
+      suspend: false
+      language: java
+      java:
+        kind: CronJob
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: CronJob
+      - equal:
+          path: spec.schedule
+          value: "*/5 * * * *"
