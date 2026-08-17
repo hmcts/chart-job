@@ -30,8 +30,7 @@ tests:
       kind: CronJob
       schedule: "*/5 * * * *"
       startingDeadlineSeconds: 1200
-      # top-level disableActiveClusterCheck takes precedence over global (see CronJob.yaml),
-      # so it must be overridden here too - ci-values-minimal.yaml sets it true by default
+      # top-level disableActiveClusterCheck wins over global, override here too (see CronJob.yaml)
       disableActiveClusterCheck: false
       global:
         activeCronCluster: false
@@ -50,8 +49,6 @@ tests:
       kind: CronJob
       schedule: "*/5 * * * *"
       startingDeadlineSeconds: 1200
-      # top-level disableActiveClusterCheck takes precedence over global (see CronJob.yaml),
-      # so it must be overridden here too - ci-values-minimal.yaml sets it true by default
       disableActiveClusterCheck: false
       global:
         activeCronCluster: true
@@ -71,8 +68,6 @@ tests:
       schedule: "*/5 * * * *"
       startingDeadlineSeconds: 1200
       suspend: true
-      # top-level disableActiveClusterCheck takes precedence over global (see CronJob.yaml),
-      # so it must be overridden here too - ci-values-minimal.yaml sets it true by default
       disableActiveClusterCheck: false
       global:
         activeCronCluster: true
@@ -123,8 +118,7 @@ tests:
       startingDeadlineSeconds: 1200
       disableActiveClusterCheck: true
       suspend: false
-      # values.yaml defaults concurrencyPolicy to "Forbid", so it must be explicitly
-      # cleared here to genuinely exercise the absent branch
+      # defaults to "Forbid" in values.yaml, must be cleared to hit the absent branch
       concurrencyPolicy: null
     asserts:
       - notExists:
@@ -189,9 +183,7 @@ tests:
       schedule: "*/5 * * * *"
       startingDeadlineSeconds: 900
       suspend: false
-      # explicitly unset the top-level key (ci-values-minimal.yaml forces it true by default)
-      # so this test genuinely exercises the fallback to global, rather than passing
-      # coincidentally because the top-level default was already true
+      # unset top-level (defaults true in ci-values-minimal.yaml) to genuinely test the fallback
       disableActiveClusterCheck: null
       global:
         disableActiveClusterCheck: true
