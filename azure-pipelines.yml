@@ -11,6 +11,7 @@ resources:
   repositories:
   - repository: cnp-azuredevops-libraries
     type: github
+    ref: refs/heads/master
     name: hmcts/cnp-azuredevops-libraries
     endpoint: 'hmcts'
 
@@ -28,6 +29,8 @@ jobs:
       chartName: job
       chartReleaseName: chart-job-ci-test
       chartNamespace: chart-tests
+      kubeconformValuesFile: ci-values-minimal.yaml
+      runUnitTests: true
 
 - job: Release
   # Make sure we have a tag to run this job

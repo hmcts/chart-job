@@ -15,7 +15,7 @@
 ---
 apiVersion: batch/v1
 kind: CronJob
-{{ include "hmcts.metadata.v2" .}}
+{{ include "hmcts.metadata.v3" .}}
 spec:
   schedule: "{{ $languageValues.schedule }}"
   {{- if $disableActiveClusterCheck }}

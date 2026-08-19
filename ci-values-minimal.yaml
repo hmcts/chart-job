@@ -1,0 +1,5 @@
+# Fed into: kubeconform, helm-unittest assertion tests + snapshots
+image: hmctspublic.azurecr.io/test/app:latest
+kind: CronJob
+schedule: "*/5 * * * *"
+disableActiveClusterCheck: true # exercises the suspend code path that is otherwise skipped when false

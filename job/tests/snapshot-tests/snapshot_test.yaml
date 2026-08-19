@@ -1,0 +1,12 @@
+suite: chart-job snapshot
+# Snapshot is generated from the values loaded by the pipeline:
+#   --values ci-values.yaml --values ci-values-minimal.yaml
+# ci-values.yaml sets kind: CronJob, so this captures the CronJob rendering.
+# Run `helm unittest --update-snapshot job/` to regenerate after intentional changes.
+templates:
+  - templates/CronJob.yaml
+  - templates/Job.yaml
+tests:
+  - it: matches snapshot for CronJob with full ci-values
+    asserts:
+      - matchSnapshot: {}
