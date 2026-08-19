@@ -56,3 +56,20 @@ tests:
     asserts:
       - notExists:
           path: spec.backoffLimit
+
+  - it: language values override backoffLimit while unset top-level fields still fall back
+    set:
+      image: hmctspublic.azurecr.io/test/app:latest
+      kind: Job
+      backoffLimit: 6
+      ttlSecondsAfterFinished: 120
+      language: java
+      java:
+        backoffLimit: 2
+    asserts:
+      - equal:
+          path: spec.backoffLimit
+          value: 2
+      - equal:
+          path: spec.ttlSecondsAfterFinished
+          value: 120
