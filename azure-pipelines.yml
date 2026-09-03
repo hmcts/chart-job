@@ -13,6 +13,7 @@ resources:
     type: github
     ref: refs/heads/master
     name: hmcts/cnp-azuredevops-libraries
+    ref: refs/heads/zr-acr-publish
     endpoint: 'hmcts'
 
 variables:
